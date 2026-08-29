@@ -219,25 +219,7 @@ export default function LoginPage() {
             </div>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-gray-200/60">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Demo Accounts</p>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                onClick={() => { setEmail("admin@anmool.com"); setPassword("admin123"); }}
-                className="p-3 rounded-xl bg-white border border-gray-100 hover:border-sky/30 hover:shadow-sm transition-all text-left group"
-              >
-                <span className="text-xs font-bold text-navy block">Admin</span>
-                <span className="text-[11px] text-gray-400">admin@anmool.com</span>
-              </button>
-              <button
-                onClick={() => { setEmail("rahul@example.com"); setPassword("password123"); }}
-                className="p-3 rounded-xl bg-white border border-gray-100 hover:border-sky/30 hover:shadow-sm transition-all text-left group"
-              >
-                <span className="text-xs font-bold text-navy block">User</span>
-                <span className="text-[11px] text-gray-400">rahul@example.com</span>
-              </button>
-            </div>
-          </div>
+         
         </motion.div>
       </div>
     </div>
