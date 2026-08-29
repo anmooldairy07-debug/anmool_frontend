@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00AEEF;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#1a3566;stop-opacity:0.25"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" rx="20" fill="url(#bg)"/>
+  <ellipse cx="300" cy="250" rx="100" ry="70" fill="#FFFAF0" stroke="#1a3566" stroke-width="2"/>
+  <ellipse cx="300" cy="240" rx="85" ry="55" fill="#FFFFFF"/>
+  <ellipse cx="300" cy="235" rx="60" ry="35" fill="#FFFAF0" opacity="0.6"/>
+  <ellipse cx="300" cy="340" rx="70" ry="12" fill="#FFFAF0" opacity="0.3"/>
+  <text x="300" y="420" text-anchor="middle" font-family="Poppins, sans-serif" font-size="28" font-weight="600" fill="#1a3566">Creamy Curd</text>
+  <text x="300" y="460" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#6B8E23">Probiotic Rich</text>
+</svg>
