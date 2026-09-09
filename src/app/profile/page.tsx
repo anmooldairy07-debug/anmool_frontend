@@ -246,7 +246,7 @@ export default function ProfilePage() {
                       <label className="text-sm font-semibold text-navy block mb-2">Phone</label>
                       <div className="relative">
                         <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                        <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91 98765 43210"
+                        <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="90342-39674"
                           className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 text-navy placeholder:text-gray-400 focus:outline-none focus:border-sky focus:ring-2 focus:ring-sky/10 focus:bg-white transition-all text-sm" />
                       </div>
                     </div>

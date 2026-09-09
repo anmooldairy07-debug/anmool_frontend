@@ -2,203 +2,124 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight, Milk, Heart, Leaf, Shield, Award, Truck } from "lucide-react";
-
-const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+import { ArrowRight } from "lucide-react";
 
 export default function OurStoryPage() {
   return (
-    <div>
-      <section className="relative bg-navy py-20 sm:py-32 lg:py-44 overflow-hidden">
+    <div className="bg-[#FFFBF5] text-[#1d2a39]">
+      <section className="relative bg-[#0f1f3a] py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/ourstory.png" alt="" fill className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+          <Image src="/images/ourstory.png" alt="" fill className="object-cover opacity-50" />
+          <div className="absolute inset-0 bg-[#0f1f3a]/70" />
         </div>
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-block bg-white/10 backdrop-blur-xl rounded-3xl px-6 py-8 sm:px-12 sm:py-10 border border-white/20 shadow-2xl">
-            <div className="inline-flex items-center gap-1.5 bg-white/15 rounded-full px-3 py-1 mb-4 border border-white/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-white text-[11px] font-semibold tracking-widest uppercase">Since 1965</motion.span>
+        <div className="max-w-3xl mx-auto px-6 text-center relative">
+          <p className="text-white/60 text-[11px] tracking-[0.2em] uppercase">Village Budhanpur, Karnal — Jan 2024</p>
+          <h1 className="font-[Poppins] font-bold text-white text-3xl sm:text-4xl mt-3">Our Story</h1>
+          <p className="text-white/70 mt-3 text-[15px] leading-relaxed">Not decades. Just a little over a year — and a lot of early mornings.</p>
+        </div>
+      </section>
+
+      <section className="py-14 sm:py-16">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="font-[Poppins] text-[26px] font-bold text-[#1a3566] leading-tight">
+            We started because we couldn’t find what we wanted to buy.
+          </h2>
+          <div className="mt-6 space-y-4 text-[15.5px] leading-relaxed text-[#3d4f63]">
+            <p>
+              About 1.5 years ago, we were just buying milk like everyone else in Karnal — and wondering: is it fresh? Is it mixed? We thought, let’s try to fix it for our own lane first.
+            </p>
+            <p>
+              So we started carrying milk in Budhanpur and nearby areas. No shop, no big name — just two cans and people who told their neighbours. We still supply milk locally, same route, before 7am.
+            </p>
+            <p>
+              Then the same families said, “If your milk is good, can you get us real ghee?” We didn’t have a factory, so we looked for a small maker we could actually visit. We did. We tasted, we asked questions, we packed it carefully and sent it across India. The first time someone from outside Haryana called to say “it smells like my nani’s ghee” — we knew we were on the right track.
+            </p>
+            <p>
+              After that came Cow Dung Ash (500g / 1kg) and Cow Dung Cakes — not because it’s trendy, but because people asked for clean, properly dried ones for havan/pooja and couldn’t find them easily.
+            </p>
+          </div>
+
+          <div className="mt-8 border-l-2 border-[#00AEEF]/30 pl-5">
+            <p className="font-serif italic text-[17px] text-[#1a3566] leading-relaxed">
+              “If we wouldn’t keep it in our own kitchen, we won’t put it on our website.”
+            </p>
+          </div>
+
+          <div className="mt-8 bg-white border border-black/5 rounded-2xl p-1 rotate-[0.3deg] shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+            <div className="relative aspect-[4/2.8] overflow-hidden rounded-xl bg-[#f3e9d8]">
+              <Image src="/images/cheese-board.jpeg" alt="First products at home" fill className="object-cover" />
             </div>
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="font-[Poppins] text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">Our Story</motion.h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-white/80 mt-5 text-lg max-w-xl mx-auto leading-relaxed">Five decades of pure dairy tradition, rooted in trust and nature.</motion.p>
-            <div className="w-16 h-1 bg-sky rounded-full mx-auto mt-6" />
+            <p className="text-center text-xs text-[#8a7a5a] italic mt-3 px-4">Early days — our kitchen table, not a warehouse. Budhanpur, 2024.</p>
           </div>
         </div>
       </section>
 
-      {/* Story Content */}
-      <section className="py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-              <span className="text-green font-semibold text-sm tracking-widest uppercase">How It All Began</span>
-              <h2 className="font-[Poppins] text-3xl sm:text-4xl font-extrabold text-navy mt-3 tracking-tight leading-tight">
-                A legacy of <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky to-sky-light">pure dairy</span>
-              </h2>
-              <p className="text-gray-500 mt-6 text-lg leading-relaxed">
-                In 1965, in the heart of Anand, Gujarat — India&apos;s milk capital — a small family started milking a few cows and delivering milk to their neighbours. What began as a simple act of sharing pure, fresh milk grew into a legacy of trust that spans over five decades.
-              </p>
-              <p className="text-gray-500 mt-4 text-lg leading-relaxed">
-                The Anmool family believed that great dairy starts with happy cows. Our cows graze freely on 200 acres of lush pasture, drink natural spring water, and are cared for by a dedicated veterinary team. This philosophy has remained unchanged since day one.
-              </p>
-              <p className="text-gray-500 mt-4 text-lg leading-relaxed">
-                Today, Anmool Dairy serves thousands of families across Gujarat and beyond, delivering farm-fresh milk, paneer, ghee, curd, and more — the way nature intended. No shortcuts, no compromises, no artificial anything.
-              </p>
-            </motion.div>
+      <section id="journey" className="py-14 bg-white border-y border-black/5">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="font-[Poppins] text-[22px] font-bold text-[#1a3566]">How it unfolded</h2>
+          <p className="text-sm text-[#6b7a90] mt-1">Five small steps. No overnight success.</p>
 
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: 0.2 }} className="relative">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-navy/10">
-                <Image src="/images/cheese-board.jpeg" alt="Anmool Cheese & Paneer Board" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/30 to-transparent" />
+          <div className="mt-8 space-y-7">
+            {[
+              { n: "01 — Milk", t: "Jan 2024, Karnal lanes", d: "Carrying cans, learning which house wants extra malai, which one wants it early. No ads, just trust." },
+              { n: "02 — Trust", t: "Mid 2024", d: "Feedback became our to-do list. Better bottles, better timing, clearer price. One fix at a time." },
+              { n: "03 — Desi Ghee", t: "Late 2024", d: "Started sending pure ghee pan-India through a small trusted source. We still check every batch ourselves." },
+              { n: "04 — Ash & Cakes", t: "2025", d: "Cow Dung Ash (500g/1kg) and Cakes for havan/pooja — dried fully, packed so they don’t crumble." },
+              { n: "05 — DhenuVera", t: "Now", d: "Cone Dhoop, Stick Dhoop, Sambrani Cups in 6 fragrances. Coming soon — we’re still testing at home." },
+            ].map((s) => (
+              <div key={s.n} className="pl-4 border-l border-black/10">
+                <p className="text-xs tracking-widest uppercase text-[#8a9ab5]">{s.t}</p>
+                <h3 className="font-semibold text-[#1a3566] text-sm mt-1">{s.n}</h3>
+                <p className="text-sm leading-relaxed text-[#4a5a73] mt-1">{s.d}</p>
               </div>
-              <motion.div animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity }} className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-5 shadow-xl shadow-navy/5 border border-gray-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
-                    <Award size={24} className="text-green" />
-                  </div>
-                  <div>
-                    <p className="font-[Poppins] font-bold text-navy text-lg">58 Years</p>
-                    <p className="text-xs text-gray-400">of Tradition</p>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline Storytelling */}
-      <section className="py-20 sm:py-28 bg-gray-50 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-20">
-            <span className="text-green font-semibold text-sm tracking-widest uppercase">Our Journey</span>
-            <h2 className="font-[Poppins] text-3xl sm:text-4xl font-extrabold text-navy mt-3 tracking-tight">Growing with trust, one drop at a time</h2>
-          </motion.div>
-
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky/20 via-sky to-sky/20 hidden md:block" />
-
-            {[
-              {
-                year: "1965",
-                title: "The Beginning",
-                desc: "A small family in Anand, Gujarat started milking a few cows and delivering fresh milk to their neighbours. Pure, honest dairy — the way nature intended.",
-                image: "/images/farm.jpg",
-                side: "left",
-              },
-              {
-                year: "1980",
-                title: "Expanding Our Herd",
-                desc: "With growing trust from the community, we expanded to 50 cows and introduced traditional curd and butter production using earthen pots.",
-                image: "/images/dairy-products-collage.jpeg",
-                side: "right",
-              },
-              {
-                year: "1995",
-                title: "Going Organic",
-                desc: "We made a bold decision — zero hormones, zero antibiotics, zero artificial feed. 100% organic, the way dairy was meant to be.",
-                image: "/images/cheese-board.jpeg",
-                side: "left",
-              },
-              {
-                year: "2010",
-                title: "Farm to Doorstep",
-                desc: "We launched our direct delivery model — temperature-controlled vehicles bringing farm-fresh products to your doorstep within hours of milking.",
-                image: "/images/milk-pour.jpeg",
-                side: "right",
-              },
-              {
-                year: "2020",
-                title: "Anmool Goes Digital",
-                desc: "We brought our farm-fresh dairy to your fingertips. Online ordering, subscription plans, and same-day delivery across Gujarat.",
-                image: "/images/butter-splash.jpeg",
-                side: "left",
-              },
-              {
-                year: "Today",
-                title: "10,000+ Families Strong",
-                desc: "300+ happy cows, 200 acres of lush pasture, and thousands of families who trust Anmool daily. The journey continues — pure, honest, and full of love.",
-                image: "/images/dairy-products-collage.jpeg",
-                side: "right",
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className={`relative flex items-center gap-5 md:gap-16 mb-12 md:mb-20 last:mb-0 ${item.side === "right" ? "md:flex-row-reverse" : ""}`}
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-sky border-4 border-white shadow-lg z-10 hidden md:block" />
-
-                {/* Image */}
-                <div className={`w-full md:w-1/2 ${item.side === "right" ? "md:text-right" : ""}`}>
-                  <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl group">
-                    <Image src={item.image} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <span className="inline-block bg-sky text-white text-sm font-bold px-4 py-1.5 rounded-full mb-3">{item.year}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Text */}
-                <div className="w-full md:w-1/2">
-                  <div className={`${item.side === "right" ? "md:text-right" : ""}`}>
-                    <span className="text-sky font-bold text-sm tracking-widest uppercase">{item.year}</span>
-                    <h3 className="font-[Poppins] text-2xl sm:text-3xl font-extrabold text-navy mt-2 tracking-tight">{item.title}</h3>
-                    <p className="text-gray-500 mt-4 text-base leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Values Grid */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-14">
-            <span className="text-green font-semibold text-sm tracking-widest uppercase">Our Values</span>
-            <h2 className="font-[Poppins] text-3xl sm:text-4xl font-extrabold text-navy mt-3 tracking-tight">What we stand for</h2>
-          </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Milk, title: "300+ Happy Cows", desc: "Our cows are family. They graze freely and are cared for with love." },
-              { icon: Leaf, title: "200 Acres Farm", desc: "Lush pastures in Anand, Gujarat — the heart of India's dairy country." },
-              { icon: Shield, title: "Lab Tested", desc: "Every batch is quality certified for your safety and trust." },
-              { icon: Truck, title: "Farm to Doorstep", desc: "No middlemen. Direct from our farm to your family." },
-            ].map((item, i) => (
-              <motion.div key={item.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }}>
-                <div className="flex flex-col gap-4 p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-lg hover:border-sky/20 transition-all h-full">
-                  <div className="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center shrink-0">
-                    <item.icon size={22} className="text-sky" />
-                  </div>
-                  <div>
-                    <h3 className="font-[Poppins] font-bold text-navy">{item.title}</h3>
-                    <p className="text-sm text-gray-400 mt-1 leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+      <section className="py-14">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="font-[Poppins] text-[22px] font-bold text-[#1a3566]">What we’re trying to do</h2>
+          <p className="text-[15px] leading-relaxed text-[#3d4f63] mt-3">
+            Make genuine products a little easier to find — without big claims. We focus on five simple things: pick carefully, tell the truth on the label, pack it cleanly, deliver honestly, and keep improving when you tell us what’s wrong.
+          </p>
+          <div className="mt-6 grid sm:grid-cols-2 gap-3 text-sm text-[#3d4f63]">
+            <div className="bg-[#f8f9fb] border border-black/5 rounded-xl p-4">Quality over quantity — small sources, not cheapest market.</div>
+            <div className="bg-[#f8f9fb] border border-black/5 rounded-xl p-4">Transparency — clear ingredients, no fine print.</div>
+            <div className="bg-[#f8f9fb] border border-black/5 rounded-xl p-4">Customer trust — you’re the reason we grew from 1 lane to more.</div>
+            <div className="bg-[#f8f9fb] border border-black/5 rounded-xl p-4">Keep learning — every WhatsApp complaint goes into our next fix.</div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-gradient-to-r from-navy to-navy-dark">
-        <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-[Poppins] text-3xl font-extrabold text-white mb-4">Visit Our Farm</h2>
-          <p className="text-white/50 mb-8">See our cows, pastures, and production facility firsthand.</p>
-          <Link href="/our-farm" className="inline-flex items-center gap-2 bg-sky text-white px-7 py-3.5 rounded-2xl font-semibold hover:bg-sky-dark transition-all shadow-xl shadow-sky/30">
-            Explore the Farm <ArrowRight size={16} />
-          </Link>
+      <section className="py-14 bg-white border-t border-black/5">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="font-[Poppins] text-[22px] font-bold text-[#1a3566]">Why people come back</h2>
+          <div className="mt-4 space-y-2.5 text-sm leading-relaxed text-[#3d4f63]">
+            <p>— We started on the ground, still deliver milk ourselves.</p>
+            <p>— We add products only when someone asks for them.</p>
+            <p>— Traditional things, made the old way, not trendy copies.</p>
+            <p>— We say “not ready yet” instead of selling half-done products.</p>
+            <p>— Customers are neighbours first, buyers second.</p>
+          </div>
+
+          <div className="mt-8 bg-[#FFFBF5] border border-black/5 rounded-2xl p-6">
+            <p className="font-semibold text-[#1a3566]">From Karnal to every Indian home</p>
+            <p className="text-sm leading-relaxed text-[#5a6b83] mt-1">That’s the vision — same honesty, more pin codes. Local roots, growing reach.</p>
+          </div>
+
+          <div className="mt-8 bg-white border border-black/5 rounded-2xl p-6 shadow-sm">
+            <p className="text-xs tracking-widest uppercase text-[#8a9ab5] font-semibold">A quick note</p>
+            <p className="text-sm leading-relaxed text-[#3d4f63] mt-2">
+              We’re still young — 1.5 years. We don’t have decades of story, but we have one real one: trust has to be earned. We started with milk, then ghee, then Ash & Cakes, now DhenuVera. Same test: would we use it at home? If yes, we list it. Thank you for letting us learn.
+            </p>
+            <p className="font-serif italic text-[#1a3566] mt-3">— Team Anmool Dairy</p>
+          </div>
+
+          <div className="flex gap-3 mt-8">
+            <Link href="/products" className="bg-[#1a3566] text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-black">See products</Link>
+            <Link href="/dhenuvera" className="bg-white border border-black/10 px-6 py-3 rounded-full text-sm font-semibold hover:bg-black hover:text-white">DhenuVera — coming soon</Link>
+          </div>
         </div>
       </section>
     </div>

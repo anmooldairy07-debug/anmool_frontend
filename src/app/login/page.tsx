@@ -73,7 +73,7 @@ export default function LoginPage() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="text-white/50 text-base leading-relaxed mb-10"
           >
-            Premium quality milk, paneer, ghee and more — delivered fresh from our farms to your doorstep.
+            Genuine products from Karnal — Milk, Pure Desi Ghee, Cow Dung products & upcoming DhenuVera.
           </motion.p>
 
           <motion.div
@@ -89,12 +89,12 @@ export default function LoginPage() {
             <div className="w-px h-4 bg-white/20" />
             <div className="flex items-center gap-2">
               <Shield size={16} className="text-green-light" />
-              <span>Trusted Since 1965</span>
+              <span>Honest Promise</span>
             </div>
             <div className="w-px h-4 bg-white/20" />
             <div className="flex items-center gap-2">
               <Leaf size={16} className="text-green-light" />
-              <span>100% Natural</span>
+              <span>Village Budhanpur, Karnal</span>
             </div>
           </motion.div>
         </div>

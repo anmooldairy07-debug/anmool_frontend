@@ -1,19 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Banner from "@/components/Banner";
 import { motion, AnimatePresence } from "framer-motion";
-import { FadeUp, FadeLeft, FadeRight, StaggerChildren, StaggerItem } from "@/components/motion/Animations";
+import { FadeLeft, FadeRight, StaggerChildren, StaggerItem } from "@/components/motion/Animations";
 import {
   MapPin, Phone, Mail, Clock, Send, MessageSquare, User,
   CheckCircle2, ArrowRight, Headphones, HelpCircle, Truck,
 } from "lucide-react";
 
 const contactMethods = [
-  { icon: Phone, title: "Call Us", desc: "Mon-Sat, 6AM - 8PM", value: "+91 98765 43210", color: "bg-sky-50 text-sky" },
-  { icon: Mail, title: "Email Us", desc: "We reply within 24hrs", value: "hello@anmool.in", color: "bg-green-50 text-green" },
-  { icon: MapPin, title: "Visit Us", desc: "Anand, Gujarat, India", value: "Get Directions", color: "bg-orange-50 text-orange" },
+  { icon: Phone, title: "Call Us", desc: "Mon-Sat, 8AM - 8PM", value: "90342-39674 / 70784-20222", color: "bg-sky-50 text-sky", href: "tel:+919034239674" },
+  { icon: Mail, title: "Email Us", desc: "We reply within 24hrs", value: "anmooldairy@gmail.com", color: "bg-green-50 text-green", href: "mailto:anmooldairy@gmail.com" },
+  { icon: MapPin, title: "Visit Us", desc: "Village Budhanpur, Karnal", value: "Karnal, Haryana – 132001", color: "bg-orange-50 text-orange", href: "#map" },
 ];
 
 const quickTopics = [
@@ -38,8 +37,8 @@ export default function ContactPage() {
     <div className="page-enter">
       <Banner
         title="Contact Us"
-        tag="Get in Touch"
-        subtitle="We'd love to hear from you. Reach out anytime — our team is here to help."
+        tag="We'd Love to Hear From You"
+        subtitle="Have a question about our products, want to place an order, or looking for more information? Feel free to get in touch."
         image="/images/contact.png"
       />
 
@@ -49,14 +48,14 @@ export default function ContactPage() {
           <StaggerChildren stagger={0.1} className="grid sm:grid-cols-3 gap-6">
             {contactMethods.map((m) => (
               <StaggerItem key={m.title}>
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-500 text-center group cursor-pointer">
+                <a href={m.href} className="block bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-500 text-center group">
                   <div className={`w-14 h-14 rounded-2xl ${m.color} mx-auto flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                     <m.icon size={24} />
                   </div>
                   <h3 className="font-bold text-navy mb-1">{m.title}</h3>
                   <p className="text-gray-400 text-sm mb-2">{m.desc}</p>
                   <p className="text-sky font-semibold text-sm">{m.value}</p>
-                </div>
+                </a>
               </StaggerItem>
             ))}
           </StaggerChildren>
@@ -82,10 +81,10 @@ export default function ContactPage() {
 
                   <div className="space-y-5">
                     {[
-                      { icon: MapPin, title: "Anmool Dairy Farm", sub: "Anand, Gujarat 388001, India" },
-                      { icon: Phone, title: "+91 98765 43210", sub: "Mon-Sat: 6:00 AM - 8:00 PM" },
-                      { icon: Mail, title: "hello@anmool.in", sub: "We reply within 24 hours" },
-                      { icon: Clock, title: "Business Hours", sub: "Mon-Sat: 6AM - 8PM | Sun: 7AM - 2PM" },
+                      { icon: MapPin, title: "Anmool Dairy", sub: "Village Budhanpur, Karnal, Haryana – 132001, India" },
+                      { icon: Phone, title: "90342-39674", sub: "Also: 70784-20222" },
+                      { icon: Mail, title: "anmooldairy@gmail.com", sub: "We reply within 24 hours" },
+                      { icon: Clock, title: "Business Hours", sub: "Mon-Sat: 8AM - 8PM | Sun: 9AM - 5PM" },
                     ].map((c) => (
                       <div key={c.title} className="flex items-start gap-4 group">
                         <div className="w-10 h-10 rounded-xl bg-navy-50 flex items-center justify-center shrink-0 group-hover:bg-navy group-hover:text-white transition-colors">
@@ -99,15 +98,30 @@ export default function ContactPage() {
                     ))}
                   </div>
 
-                  {/* Mini map placeholder */}
-                  <div className="relative rounded-2xl overflow-hidden bg-gray-100 h-48 border border-gray-200">
+                  {/* Quick action cards */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <a href="tel:+919034239674" className="flex items-center justify-center gap-2 bg-navy text-white py-3 rounded-xl font-semibold text-sm hover:bg-navy-dark transition-colors">
+                      <Phone size={16} /> Call 90342-39674
+                    </a>
+                    <a href="https://wa.me/919034239674" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-xl font-semibold text-sm hover:bg-[#1eb855] transition-colors">
+                      WhatsApp Us
+                    </a>
+                  </div>
+
+                  {/* Map placeholder */}
+                  <div id="map" className="relative rounded-2xl overflow-hidden bg-gray-100 h-48 border border-gray-200">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center">
                         <MapPin size={28} className="text-sky mx-auto mb-2" />
-                        <p className="text-sm font-medium text-gray-500">Anand, Gujarat</p>
-                        <p className="text-xs text-gray-400">Farm location</p>
+                        <p className="text-sm font-medium text-gray-700">Village Budhanpur, Karnal</p>
+                        <p className="text-xs text-gray-400">Haryana – 132001</p>
                       </div>
                     </div>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-sky-50 border border-sky/10">
+                    <p className="text-sm text-navy font-semibold">For Orders & Enquiries</p>
+                    <p className="text-sm text-gray-500 mt-1">WhatsApp | Call | Enquiry Form — we&apos;re here to help.</p>
                   </div>
                 </div>
               </FadeLeft>
@@ -151,10 +165,9 @@ export default function ContactPage() {
                       >
                         <div className="mb-8">
                           <h2 className="text-2xl font-[Poppins] font-bold text-navy mb-2">Send a Message</h2>
-                          <p className="text-gray-400 text-sm">Fill out the form and we&apos;ll respond shortly.</p>
+                          <p className="text-gray-400 text-sm">Fill out the form and we&apos;ll respond shortly. Or email us at anmooldairy@gmail.com</p>
                         </div>
 
-                        {/* Quick Topic Selector */}
                         <div className="mb-6">
                           <label className="text-sm font-semibold text-navy block mb-3">What&apos;s this about?</label>
                           <div className="flex flex-wrap gap-2">
@@ -217,7 +230,7 @@ export default function ContactPage() {
                                   value={form.phone}
                                   onChange={(e) => update("phone", e.target.value)}
                                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-navy placeholder:text-gray-400 focus:outline-none focus:border-sky focus:ring-2 focus:ring-sky/10 focus:bg-white transition-all text-sm"
-                                  placeholder="+91 98765 43210"
+                                  placeholder="90342-39674"
                                 />
                               </div>
                             </div>

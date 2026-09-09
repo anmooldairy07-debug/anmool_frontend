@@ -3,70 +3,53 @@
 import Link from "next/link";
 import Image from "next/image";
 import Banner from "@/components/Banner";
-import { ArrowRight, Trees, Droplets, Sun, Beef } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function OurFarmPage() {
   return (
-    <div className="page-enter">
-      <Banner title="Our Farm" tag="Anand, Gujarat" subtitle="200 acres of lush pasture where happy cows graze freely." image="/images/ourfarm.png" />
+    <div className="bg-[#FFFBF5] text-[#1d2a39]">
+      <Banner title="Our Roots in Karnal" tag="Village Budhanpur, Karnal, Haryana" subtitle="No big farm claim — just a small start, 1.5 years ago, carrying milk in our own lanes." image="/images/ourfarm.png" />
 
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-primary">Where nature does the work</h2>
-              <p className="text-body/60 text-lg leading-relaxed">
-                Our 200-acre farm in Anand, Gujarat is where the magic happens. Here, 300+ cows roam freely across lush green pastures, drinking natural spring water and feeding on organic grass and fodder.
-              </p>
-              <p className="text-body/50 text-lg leading-relaxed">
-                We follow a strict no-compromise approach: no growth hormones, no antibiotics, no artificial feed. Every cow is monitored by our dedicated veterinary team, ensuring they are healthy, happy, and stress-free.
-              </p>
-              <p className="text-body/50 text-lg leading-relaxed">
-                From milking to processing to delivery — every step is handled with care to bring you the purest dairy products possible.
-              </p>
+      <section className="py-14">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="font-[Poppins] text-[26px] font-bold text-[#1a3566]">Where we actually started</h2>
+          <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-[#3d4f63]">
+            <p>
+              In early 2024, in Village Budhanpur, Karnal — we started with milk. Not a 200-acre farm, not 300 cows. Just a simple plan: give fresh milk to our neighbours and see if they come back.
+            </p>
+            <p>They did. And they told others. That’s how it grew.</p>
+            <p>
+              We still supply milk locally — same mornings, same route. For everything else (ghee, Ash, Cakes, soon DhenuVera) we work with small trusted makers we’ve met and checked ourselves. We don’t pretend it’s all from our own farm. We tell you where it’s from, how it’s packed, and what’s inside.
+            </p>
+          </div>
+
+          <div className="mt-6 bg-white border border-black/5 rounded-2xl p-5">
+            <p className="text-sm font-semibold text-[#1a3566]">If we wouldn’t want it for our own family, we won’t offer it to yours.</p>
+            <p className="text-sm text-[#6b7a90] mt-1">That’s the only “certification” we claim every time.</p>
+          </div>
+
+          <div className="mt-8 bg-white p-2 rounded-xl border border-black/5 shadow-sm rotate-[0.4deg]">
+            <div className="relative aspect-[4/2.9] overflow-hidden rounded-lg bg-[#f3e9d8]">
+              <Image src="/images/farm.jpg" alt="Karnal" fill className="object-cover" />
             </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-sky-50 shadow-lg">
-              <Image src="/images/farm.jpg" alt="Anmool Fresh Butter" fill className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <p className="font-bold text-2xl drop-shadow-lg">Fresh from the Farm</p>
-                <p className=" text-lg mt-1 drop-shadow">Pure butter churned daily</p>
-              </div>
+            <p className="text-center text-xs italic text-[#8a7a5a] mt-2">Our lane in Karnal — where the first deliveries happened.</p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 gap-3 text-sm">
+            <div className="bg-white border border-black/5 rounded-xl p-4">
+              <p className="font-semibold text-[#1a3566]">Milk</p>
+              <p className="text-[#6b7a90] mt-1">Local, fresh, morning delivery in Karnal.</p>
+            </div>
+            <div className="bg-white border border-black/5 rounded-xl p-4">
+              <p className="font-semibold text-[#1a3566]">Ghee, Ash, Cakes</p>
+              <p className="text-[#6b7a90] mt-1">Carefully sourced, hygienically packed, shipped across India.</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="py-16 bg-cream">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-primary">Farm Highlights</h2>
-            <div className="icon-divider"><span className="text-primary text-lg">🐄</span></div>
+          <div className="flex gap-3 mt-8">
+            <Link href="/our-story" className="inline-flex items-center gap-2 bg-[#1a3566] text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-black">Our story <ArrowRight size={14} /></Link>
+            <Link href="/dhenuvera" className="inline-flex items-center gap-2 bg-white border border-black/10 px-6 py-3 rounded-full text-sm font-semibold">DhenuVera — soon</Link>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Beef, title: "300+ Cows", desc: "Indigenous breeds, free-grazing" },
-              { icon: Trees, title: "200 Acres", desc: "Lush green pastures" },
-              { icon: Droplets, title: "Spring Water", desc: "Natural water sources" },
-              { icon: Sun, title: "Open Air", desc: "Free-range environment" },
-            ].map((h) => (
-              <div key={h.title} className="text-center p-6 rounded-xl bg-white border border-primary-50 hover:shadow-md transition-shadow">
-                <h.icon size={32} className="text-sky mx-auto mb-3" />
-                <h3 className="font-bold text-primary">{h.title}</h3>
-                <p className="text-sm text-body/50 mt-1">{h.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-primary mb-4">Come Visit Us</h2>
-          <p className="text-body/50 mb-8">We welcome visitors to see our farm, meet our cows, and taste the difference firsthand.</p>
-          <Link href="/contact" className="inline-flex items-center gap-2 bg-sky text-white px-7 py-3.5 rounded-xl font-semibold hover:bg-sky-light transition-colors">
-            Schedule a Visit <ArrowRight size={16} />
-          </Link>
         </div>
       </section>
     </div>

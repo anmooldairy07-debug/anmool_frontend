@@ -74,7 +74,7 @@ export default function RegisterPage() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="text-white/50 text-base leading-relaxed mb-10"
           >
-            Create your account and get access to premium farm-fresh dairy products delivered to your doorstep.
+            Create your account and get access to genuine products — Milk, Pure Desi Ghee & traditional products from Karnal.
           </motion.p>
 
           <motion.div
@@ -90,12 +90,12 @@ export default function RegisterPage() {
             <div className="w-px h-4 bg-white/20" />
             <div className="flex items-center gap-2">
               <Shield size={16} className="text-green-light" />
-              <span>Trusted Since 1965</span>
+              <span>Honest Promise</span>
             </div>
             <div className="w-px h-4 bg-white/20" />
             <div className="flex items-center gap-2">
               <Leaf size={16} className="text-green-light" />
-              <span>100% Natural</span>
+              <span>Village Budhanpur, Karnal</span>
             </div>
           </motion.div>
         </div>
@@ -198,7 +198,7 @@ export default function RegisterPage() {
                     required
                     value={form.phone}
                     onChange={(e) => update("phone", e.target.value)}
-                    placeholder="+91 98765 43210"
+                    placeholder="90342-39674"
                     className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white text-navy placeholder:text-gray-400 focus:outline-none focus:border-sky focus:ring-2 focus:ring-sky/10 transition-all text-sm"
                   />
                 </div>
@@ -213,7 +213,7 @@ export default function RegisterPage() {
                     required
                     value={form.address}
                     onChange={(e) => update("address", e.target.value)}
-                    placeholder="123 Farm Road, Gujarat"
+                    placeholder="Village Budhanpur, Karnal, Haryana – 132001"
                     className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white text-navy placeholder:text-gray-400 focus:outline-none focus:border-sky focus:ring-2 focus:ring-sky/10 transition-all text-sm"
                   />
                 </div>

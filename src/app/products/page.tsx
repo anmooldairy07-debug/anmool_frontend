@@ -8,7 +8,7 @@ import Banner from "@/components/Banner";
 import { FadeUp, StaggerChildren, StaggerItem } from "@/components/motion/Animations";
 import { Search, Package } from "lucide-react";
 
-const categories = ["All", "Ghee", "Milk", "Paneer", "Curd", "Butter", "Beverages", "Eco Products"];
+const categories = ["All", "Milk", "Ghee", "Cow Dung Ash", "Cow Dung Cakes", "DhenuVera"];
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -35,11 +35,33 @@ export default function ProductsPage() {
     return 0;
   });
 
+  // Show static info if no products from backend for that honest category
+  const showStaticHint = !loading && sorted.length === 0;
+
   return (
     <div className="page-enter">
-      <Banner title="Farm Fresh Products" tag="Our Collection" subtitle="Pure, natural dairy products delivered fresh from our farm to your doorstep." image="/images/product.png" />
+      <Banner title="Our Products" tag="Products Made With Purpose" subtitle="Milk (Karnal local) • Pure Desi Ghee (Pan-India) • Cow Dung Ash & Cakes • DhenuVera — Coming Soon" image="/images/product.png" />
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12 sm:py-16">
+        {/* Static category cards for context */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          {[
+            { title: "Milk", desc: "Local Karnal supply — freshness & trust. Continue serving local customers." },
+            { title: "Pure Desi Ghee", desc: "Trusted sourcing — supplied across India. Authentic taste." },
+            { title: "Cow Dung Ash", desc: "500g | 1kg — traditional, religious & household uses." },
+            { title: "Cow Dung Cakes", desc: "For Havan & Pooja — convenient packs." },
+          ].map((c) => (
+            <div key={c.title} className="p-4 rounded-2xl bg-gray-50 border border-gray-100">
+              <p className="font-semibold text-navy text-sm">{c.title}</p>
+              <p className="text-xs text-gray-400 mt-1 leading-relaxed">{c.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="p-4 rounded-2xl bg-orange-50 border border-orange-100 mb-10">
+          <p className="text-sm text-orange-800"><span className="font-bold">Coming Soon:</span> DhenuVera — Cone Dhoop, Stick Dhoop & Sambrani Cups in 6 fragrances. <a href="/dhenuvera" className="underline font-semibold">Explore DhenuVera →</a></p>
+        </div>
+
         {/* Search & Sort */}
         <FadeUp>
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -110,10 +132,17 @@ export default function ProductsPage() {
             ))}
           </div>
         ) : sorted.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-2xl border border-gray-100">
+          <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
             <Package size={48} className="text-gray-200 mx-auto mb-3" />
-            <p className="text-gray-400 font-medium">No products found</p>
-            <p className="text-gray-300 text-sm mt-1">Try adjusting your search or filters</p>
+            <p className="text-gray-600 font-medium">No products found in this category yet</p>
+            <p className="text-gray-400 text-sm mt-1">
+              {category === "Milk" ? "Milk is currently supplied locally in Karnal. Contact us to order: 90342-39674." :
+               category === "DhenuVera" ? "DhenuVera is coming soon — 6 fragrances in Cone, Stick & Sambrani Cups." :
+               "Try All or contact us at anmooldairy@gmail.com"}
+            </p>
+            {category !== "All" && (
+              <button onClick={() => setCategory("All")} className="mt-4 px-6 py-2.5 rounded-xl bg-sky text-white text-sm font-semibold hover:bg-sky-dark">View All Products</button>
+            )}
           </div>
         ) : (
           <StaggerChildren stagger={0.04} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

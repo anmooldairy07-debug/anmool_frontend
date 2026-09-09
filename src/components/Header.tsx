@@ -14,6 +14,9 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const [mobileDhenuveraOpen, setMobileDhenuveraOpen] = useState(false);
   const { totalItems } = useCart();
   const { user, logout, isAdmin } = useAuth();
   const pathname = usePathname();
@@ -25,28 +28,45 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setOpen(false); setUserOpen(false); }, [pathname]);
-
-  const links = [
-    { href: "/", label: "Home" },
-    { href: "/products", label: "Products" },
-    { href: "/our-story", label: "Our Story" },
-    { href: "/our-farm", label: "Our Farm" },
-    { href: "/contact", label: "Contact" },
-  ];
+  useEffect(() => { setOpen(false); setUserOpen(false); setOpenDropdown(null); }, [pathname]);
 
   const handleLogout = () => { logout(); setUserOpen(false); router.push("/"); };
+
+  const productsSub = [
+    { label: "All Products", href: "/products" },
+    { label: "Milk", href: "/products?category=Milk" },
+    { label: "Pure Desi Ghee", href: "/products?category=Ghee" },
+    { label: "Cow Dung Ash", href: "/products?category=Cow+Dung+Ash" },
+    { label: "Cow Dung Cakes", href: "/products?category=Cow+Dung+Cakes" },
+  ];
+
+  const dhenuveraSub = [
+    { label: "DhenuVera Overview", href: "/dhenuvera" },
+    { label: "Cone Dhoop", href: "/dhenuvera#cone" },
+    { label: "Stick Dhoop", href: "/dhenuvera#stick" },
+    { label: "Sambrani Cups", href: "/dhenuvera#sambrani" },
+  ];
+
+  const isActive = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
 
   return (
     <>
       {/* Top bar */}
       <div className="bg-navy text-white/70 text-xs py-2">
-        <div className="max-w-7xl mx-auto px-5 flex items-center justify-between">
-          <span className="hidden sm:inline">Pure Milk, Pure Trust — Farm Fresh Dairy Since 1965</span>
-          <a href="tel:+919876543210" className="flex items-center gap-1.5 hover:text-sky transition-colors ml-auto">
-            <Phone size={11} />
-            <span className="font-medium">+91 98765 43210</span>
-          </a>
+        <div className="max-w-7xl mx-auto px-5 flex items-center justify-between gap-4">
+          <span className="hidden sm:inline">Pure Products. Honest Promise. — From Karnal, Haryana</span>
+          <span className="sm:hidden truncate">Village Budhanpur, Karnal, Haryana – 132001</span>
+          <div className="flex items-center gap-3 shrink-0 ml-auto">
+            <a href="tel:+919034239674" className="flex items-center gap-1.5 hover:text-sky transition-colors">
+              <Phone size={11} />
+              <span className="font-medium hidden sm:inline">90342-39674</span>
+              <span className="font-medium sm:hidden">90342-39674</span>
+            </a>
+            <span className="hidden sm:inline text-white/20">|</span>
+            <a href="tel:+917078420222" className="hidden sm:flex items-center gap-1.5 hover:text-sky transition-colors">
+              <span className="font-medium">70784-20222</span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -67,19 +87,74 @@ export default function Header() {
 
             {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-1">
-              {links.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${
-                    pathname === l.href
-                      ? "text-sky bg-sky-50"
-                      : "text-gray-600 hover:text-sky hover:bg-sky-50"
-                  }`}
+              <Link href="/" className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${pathname === "/" ? "text-sky bg-sky-50" : "text-gray-600 hover:text-sky hover:bg-sky-50"}`}>
+                Home
+              </Link>
+              <Link href="/our-story" className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${pathname === "/our-story" ? "text-sky bg-sky-50" : "text-gray-600 hover:text-sky hover:bg-sky-50"}`}>
+                About Us
+              </Link>
+
+              {/* Our Products dropdown */}
+              <div className="relative" onMouseEnter={() => setOpenDropdown("products")} onMouseLeave={() => setOpenDropdown(null)}>
+                <button
+                  onClick={() => setOpenDropdown(openDropdown === "products" ? null : "products")}
+                  className={`flex items-center gap-1 px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${isActive("/products") ? "text-sky bg-sky-50" : "text-gray-600 hover:text-sky hover:bg-sky-50"}`}
                 >
-                  {l.label}
+                  Our Products <ChevronDown size={14} className={`transition-transform ${openDropdown === "products" ? "rotate-180" : ""}`} />
+                </button>
+                <AnimatePresence>
+                  {openDropdown === "products" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50"
+                    >
+                      {productsSub.map((s) => (
+                        <Link key={s.label} href={s.href} className="block px-5 py-2.5 text-sm text-gray-600 hover:bg-sky-50 hover:text-sky transition-colors">
+                          {s.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* DhenuVera dropdown */}
+              <div className="relative" onMouseEnter={() => setOpenDropdown("dhenuvera")} onMouseLeave={() => setOpenDropdown(null)}>
+                <Link
+                  href="/dhenuvera"
+                  onClick={() => setOpenDropdown(null)}
+                  className={`flex items-center gap-1 px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${isActive("/dhenuvera") ? "text-sky bg-sky-50" : "text-gray-600 hover:text-sky hover:bg-sky-50"}`}
+                >
+                  DhenuVera <ChevronDown size={14} className={`transition-transform ${openDropdown === "dhenuvera" ? "rotate-180" : ""}`} />
                 </Link>
-              ))}
+                <AnimatePresence>
+                  {openDropdown === "dhenuvera" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50"
+                    >
+                      {dhenuveraSub.map((s) => (
+                        <Link key={s.label} href={s.href} className="block px-5 py-2.5 text-sm text-gray-600 hover:bg-sky-50 hover:text-sky transition-colors">
+                          {s.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <Link href="/our-story#journey" className="px-4 py-2.5 text-sm font-medium rounded-xl transition-all text-gray-600 hover:text-sky hover:bg-sky-50">
+                Our Journey
+              </Link>
+              <Link href="/contact" className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${pathname === "/contact" ? "text-sky bg-sky-50" : "text-gray-600 hover:text-sky hover:bg-sky-50"}`}>
+                Contact
+              </Link>
             </nav>
 
             {/* Right */}
@@ -180,18 +255,51 @@ export default function Header() {
               className="lg:hidden bg-white border-t border-gray-100 overflow-hidden"
             >
               <div className="py-3 px-5 space-y-1 pb-5">
-                {links.map((l) => (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className={`block px-5 py-3 text-base font-medium rounded-xl transition-colors ${
-                      pathname === l.href ? "text-sky bg-sky-50" : "text-gray-600 hover:bg-sky-50"
-                    }`}
-                  >
-                    {l.label}
-                  </Link>
-                ))}
+                <Link href="/" onClick={() => setOpen(false)} className={`block px-5 py-3 text-base font-medium rounded-xl transition-colors ${pathname === "/" ? "text-sky bg-sky-50" : "text-gray-600 hover:bg-sky-50"}`}>
+                  Home
+                </Link>
+                <Link href="/our-story" onClick={() => setOpen(false)} className={`block px-5 py-3 text-base font-medium rounded-xl transition-colors ${pathname === "/our-story" ? "text-sky bg-sky-50" : "text-gray-600 hover:bg-sky-50"}`}>
+                  About Us
+                </Link>
+
+                {/* Mobile Products dropdown */}
+                <div>
+                  <button onClick={() => setMobileProductsOpen(!mobileProductsOpen)} className="w-full flex items-center justify-between px-5 py-3 text-base font-medium rounded-xl text-gray-600 hover:bg-sky-50">
+                    Our Products <ChevronDown size={16} className={`transition-transform ${mobileProductsOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {mobileProductsOpen && (
+                    <div className="ml-4 mt-1 space-y-1 border-l-2 border-sky/10 pl-4">
+                      {productsSub.map((s) => (
+                        <Link key={s.label} href={s.href} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-gray-500 hover:text-sky">
+                          {s.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Mobile DhenuVera dropdown */}
+                <div>
+                  <button onClick={() => setMobileDhenuveraOpen(!mobileDhenuveraOpen)} className="w-full flex items-center justify-between px-5 py-3 text-base font-medium rounded-xl text-gray-600 hover:bg-sky-50">
+                    DhenuVera <ChevronDown size={16} className={`transition-transform ${mobileDhenuveraOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {mobileDhenuveraOpen && (
+                    <div className="ml-4 mt-1 space-y-1 border-l-2 border-sky/10 pl-4">
+                      {dhenuveraSub.map((s) => (
+                        <Link key={s.label} href={s.href} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-gray-500 hover:text-sky">
+                          {s.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <Link href="/our-story#journey" onClick={() => setOpen(false)} className="block px-5 py-3 text-base font-medium rounded-xl text-gray-600 hover:bg-sky-50">
+                  Our Journey
+                </Link>
+                <Link href="/contact" onClick={() => setOpen(false)} className={`block px-5 py-3 text-base font-medium rounded-xl transition-colors ${pathname === "/contact" ? "text-sky bg-sky-50" : "text-gray-600 hover:bg-sky-50"}`}>
+                  Contact
+                </Link>
                 {!user && (
                   <Link href="/login" onClick={() => setOpen(false)} className="block px-5 py-3 text-base font-semibold text-sky">Sign in</Link>
                 )}
