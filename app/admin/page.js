@@ -480,82 +480,86 @@ function OrdersTab({ orders, reload }) {
   const filteredRevenue = filtered.filter(o => o.orderStatus !== 'cancelled').reduce((s, o) => s + (o.total || 0), 0);
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 min-w-0 max-w-full overflow-x-clip">
       {/* At-a-glance strip */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className={`rounded-2xl border p-4 ${needsAction ? 'bg-amber-50 border-amber-200' : 'bg-white border-gray-100'}`}>
-          <div className="text-[11px] font-bold text-amber-700 tracking-wide flex items-center gap-1.5"><IconAlert className="w-4 h-4" /> NEEDS ACTION</div>
-          <div className="text-2xl font-bold mt-1">{needsAction}</div>
-          <div className="text-[11px] text-gray-500">pending + confirmed — confirm and ship fast</div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+        <div className={`rounded-2xl border p-3 sm:p-4 min-w-0 ${needsAction ? 'bg-amber-50 border-amber-200' : 'bg-white border-gray-100'}`}>
+          <div className="text-[10px] sm:text-[11px] font-bold text-amber-700 tracking-wide flex items-center gap-1.5"><IconAlert className="w-4 h-4 shrink-0" /> <span className="truncate">NEEDS ACTION</span></div>
+          <div className="text-xl sm:text-2xl font-bold mt-1 tabular-nums">{needsAction}</div>
+          <div className="text-[10px] sm:text-[11px] text-gray-500 leading-snug">pending + confirmed — confirm and ship fast</div>
         </div>
-        <div className="bg-white rounded-2xl border border-gray-100 p-4">
-          <div className="text-[11px] font-bold text-cyan-700 tracking-wide flex items-center gap-1.5"><IconTruck className="w-4 h-4" /> IN TRANSIT</div>
-          <div className="text-2xl font-bold mt-1">{inTransit}</div>
-          <div className="text-[11px] text-gray-500">shipped + out for delivery</div>
+        <div className="bg-white rounded-2xl border border-gray-100 p-3 sm:p-4 min-w-0">
+          <div className="text-[10px] sm:text-[11px] font-bold text-cyan-700 tracking-wide flex items-center gap-1.5"><IconTruck className="w-4 h-4 shrink-0" /> <span className="truncate">IN TRANSIT</span></div>
+          <div className="text-xl sm:text-2xl font-bold mt-1 tabular-nums">{inTransit}</div>
+          <div className="text-[10px] sm:text-[11px] text-gray-500 leading-snug">shipped + out for delivery</div>
         </div>
-        <div className="bg-white rounded-2xl border border-gray-100 p-4">
-          <div className="text-[11px] font-bold text-green-700 tracking-wide flex items-center gap-1.5"><IconCheckCircle className="w-4 h-4" /> DELIVERED (24H)</div>
-          <div className="text-2xl font-bold mt-1">{deliveredToday}</div>
-          <div className="text-[11px] text-gray-500">completed in last 24 hours</div>
+        <div className="bg-white rounded-2xl border border-gray-100 p-3 sm:p-4 min-w-0">
+          <div className="text-[10px] sm:text-[11px] font-bold text-green-700 tracking-wide flex items-center gap-1.5"><IconCheckCircle className="w-4 h-4 shrink-0" /> <span className="truncate">DELIVERED (24H)</span></div>
+          <div className="text-xl sm:text-2xl font-bold mt-1 tabular-nums">{deliveredToday}</div>
+          <div className="text-[10px] sm:text-[11px] text-gray-500 leading-snug">completed in last 24 hours</div>
         </div>
-        <div className="bg-white rounded-2xl border border-gray-100 p-4">
-          <div className="text-[11px] font-bold text-primary tracking-wide flex items-center gap-1.5"><IconCash className="w-4 h-4" /> FILTERED REVENUE</div>
-          <div className="text-2xl font-bold mt-1 text-primary">{fmtRs(filteredRevenue)}</div>
-          <div className="text-[11px] text-gray-500">{filtered.length} order(s) in view</div>
+        <div className="bg-white rounded-2xl border border-gray-100 p-3 sm:p-4 min-w-0">
+          <div className="text-[10px] sm:text-[11px] font-bold text-primary tracking-wide flex items-center gap-1.5"><IconCash className="w-4 h-4 shrink-0" /> <span className="truncate">FILTERED REVENUE</span></div>
+          <div className="text-xl sm:text-2xl font-bold mt-1 text-primary break-words">{fmtRs(filteredRevenue)}</div>
+          <div className="text-[10px] sm:text-[11px] text-gray-500 leading-snug">{filtered.length} order(s) in view</div>
         </div>
       </div>
 
       {/* Date-wise tracking — calendar range */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm mt-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold text-gray-700 flex items-center gap-1.5"><IconBox className="w-4 h-4 text-sacred-maroon" /> Orders by date</span>
-          <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600">
-            From
-            <input type="date" value={from} max={to || undefined} onChange={e => setFrom(e.target.value)}
-              className="border border-gray-200 rounded-full px-3 py-1.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-primary/20" />
-          </label>
-          <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600">
-            To
-            <input type="date" value={to} min={from || undefined} onChange={e => setTo(e.target.value)}
-              className="border border-gray-200 rounded-full px-3 py-1.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-primary/20" />
-          </label>
-          {['today', 'yesterday', 'week', 'month', 'thisMonth'].map(p => (
-            <button key={p} onClick={() => setPreset(p)}
-              className="text-[11px] font-bold px-3 py-1.5 rounded-full border border-gray-200 text-gray-600 hover:border-primary hover:text-primary transition capitalize">
-              {p === 'week' ? 'Last 7 days' : p === 'month' ? 'Last 30 days' : p === 'thisMonth' ? 'This month' : p}
-            </button>
-          ))}
-          {(from || to) && (
-            <button onClick={() => setPreset('clear')}
-              className="text-[11px] font-bold px-3 py-1.5 rounded-full border border-red-200 text-red-600 hover:bg-red-50 transition">
-              Clear dates
-            </button>
-          )}
-          <span className="ml-auto text-[11px] text-gray-500">
+      <div className="bg-white rounded-2xl border border-gray-100 p-3 sm:p-4 shadow-sm mt-4 min-w-0">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2">
+          <span className="text-xs font-bold text-gray-700 flex items-center gap-1.5 shrink-0"><IconBox className="w-4 h-4 text-sacred-maroon" /> Orders by date</span>
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 min-w-0">
+              <span className="shrink-0">From</span>
+              <input type="date" value={from} max={to || undefined} onChange={e => setFrom(e.target.value)}
+                className="border border-gray-200 rounded-full px-3 py-1.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 min-w-0 w-full sm:w-auto" />
+            </label>
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 min-w-0">
+              <span className="shrink-0">To</span>
+              <input type="date" value={to} min={from || undefined} onChange={e => setTo(e.target.value)}
+                className="border border-gray-200 rounded-full px-3 py-1.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 min-w-0 w-full sm:w-auto" />
+            </label>
+          </div>
+          <div className="flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1 sm:flex-wrap sm:overflow-visible sm:mx-0 sm:px-0">
+            {['today', 'yesterday', 'week', 'month', 'thisMonth'].map(p => (
+              <button key={p} onClick={() => setPreset(p)}
+                className="shrink-0 whitespace-nowrap text-[11px] font-bold px-3 py-1.5 rounded-full border border-gray-200 text-gray-600 hover:border-primary hover:text-primary transition capitalize">
+                {p === 'week' ? 'Last 7 days' : p === 'month' ? 'Last 30 days' : p === 'thisMonth' ? 'This month' : p}
+              </button>
+            ))}
+            {(from || to) && (
+              <button onClick={() => setPreset('clear')}
+                className="shrink-0 whitespace-nowrap text-[11px] font-bold px-3 py-1.5 rounded-full border border-red-200 text-red-600 hover:bg-red-50 transition">
+                Clear dates
+              </button>
+            )}
+          </div>
+          <span className="text-[11px] text-gray-500 sm:ml-auto shrink-0">
             {dateLoading ? 'Loading…' : <><b className="text-gray-800">{orders.length}</b> order(s) · {rangeLabel}</>}
           </span>
         </div>
       </div>
 
       {/* Filter bar */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm mt-4">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="bg-white rounded-2xl border border-gray-100 p-3 sm:p-4 shadow-sm mt-4 min-w-0">
+        <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 sm:flex-wrap sm:overflow-visible sm:mx-0 sm:px-0">
           <button onClick={() => setStatusFilter('all')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold border ${statusFilter === 'all' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-primary'}`}>
+            className={`shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-bold border ${statusFilter === 'all' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-primary'}`}>
             All ({orders.length})
           </button>
           {ORDER_STATUSES.map(s => (
             <button key={s} onClick={() => setStatusFilter(s)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold border ${statusFilter === s ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-primary'}`}>
+              className={`shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-bold border ${statusFilter === s ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-primary'}`}>
               {STATUS_META[s].label} ({counts[s] || 0})
             </button>
           ))}
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 mt-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mt-3">
           <input value={search} onChange={e => setSearch(e.target.value)}
             placeholder="Search order ID, name, phone, city, item…"
-            className="border border-gray-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20" />
-          <select value={payFilter} onChange={e => setPayFilter(e.target.value)} className="border border-gray-200 rounded-full px-4 py-2 text-sm bg-white">
+            className="w-full min-w-0 border border-gray-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20" />
+          <select value={payFilter} onChange={e => setPayFilter(e.target.value)} className="w-full min-w-0 border border-gray-200 rounded-full px-4 py-2 text-sm bg-white">
             <option value="all">All payments</option>
             <option value="cod">COD orders</option>
             <option value="online">Online orders</option>
@@ -563,19 +567,19 @@ function OrdersTab({ orders, reload }) {
             <option value="pending">Payment pending</option>
             <option value="failed">Payment failed</option>
           </select>
-          <select value={dateFilter} onChange={e => setDateFilter(e.target.value)} className="border border-gray-200 rounded-full px-4 py-2 text-sm bg-white">
+          <select value={dateFilter} onChange={e => setDateFilter(e.target.value)} className="w-full min-w-0 border border-gray-200 rounded-full px-4 py-2 text-sm bg-white">
             <option value="all">All time</option>
             <option value="today">Last 24 hours</option>
             <option value="week">Last 7 days</option>
           </select>
-          <div className="flex gap-2">
-            <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="flex-1 border border-gray-200 rounded-full px-4 py-2 text-sm bg-white">
+          <div className="flex gap-2 min-w-0">
+            <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="flex-1 min-w-0 border border-gray-200 rounded-full px-4 py-2 text-sm bg-white">
               <option value="newest">Newest first</option>
               <option value="oldest">Oldest first</option>
               <option value="highest">Highest value</option>
               <option value="lowest">Lowest value</option>
             </select>
-            <button onClick={exportCSV} className="text-xs font-bold border border-gray-200 rounded-full px-4 py-2 hover:border-primary hover:text-primary whitespace-nowrap flex items-center gap-1.5">
+            <button onClick={exportCSV} className="shrink-0 text-xs font-bold border border-gray-200 rounded-full px-4 py-2 hover:border-primary hover:text-primary whitespace-nowrap flex items-center gap-1.5">
               <IconDownload className="w-4 h-4" /> CSV
             </button>
           </div>
@@ -583,7 +587,7 @@ function OrdersTab({ orders, reload }) {
       </div>
 
       {/* Order list */}
-      <div className="space-y-3 mt-4">
+      <div className="space-y-3 mt-4 min-w-0">
         {filtered.length === 0 && (
           <div className="bg-white rounded-2xl border border-dashed p-12 text-center text-gray-400 text-sm">No orders match this filter.</div>
         )}
@@ -591,40 +595,47 @@ function OrdersTab({ orders, reload }) {
           const open = openId === o._id;
           const itemCount = (o.items || []).reduce((s, i) => s + i.quantity, 0);
           return (
-            <div key={o._id} className={`bg-white rounded-2xl border shadow-sm overflow-hidden ${o.orderStatus === 'pending' ? 'border-amber-200 ring-1 ring-amber-100' : 'border-gray-100'}`}>
-              {/* Header row */}
-              <div className="p-4 flex flex-wrap items-center gap-3">
-                <button onClick={() => setOpenId(open ? null : o._id)} className="flex items-center gap-3 flex-1 min-w-0 text-left">
+            <div key={o._id} className={`bg-white rounded-2xl border shadow-sm overflow-hidden min-w-0 max-w-full ${o.orderStatus === 'pending' ? 'border-amber-200 ring-1 ring-amber-100' : 'border-gray-100'}`}>
+              {/* Header row — stacks vertically on mobile, side-by-side on sm+ */}
+              <div className="p-3 sm:p-4 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 min-w-0">
+                <button onClick={() => setOpenId(open ? null : o._id)} className="flex items-center gap-3 flex-1 min-w-0 w-full sm:w-auto text-left">
                   <div className="w-10 h-10 rounded-xl bg-primary/5 border border-primary/15 flex items-center justify-center text-primary text-xs font-bold shrink-0">{o.orderNumber?.slice(-3) || 'ORD'}</div>
-                  <div className="min-w-0">
-                    <div className="text-sm font-bold text-primary flex items-center gap-1.5">
-                      {o.orderNumber || `#${(o._id || '').slice(-6)}`}
-                      {o.orderStatus === 'pending' && <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" title="Needs action" />}
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-bold text-primary flex items-center gap-1.5 min-w-0">
+                      <span className="truncate">{o.orderNumber || `#${(o._id || '').slice(-6)}`}</span>
+                      {o.orderStatus === 'pending' && <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0" title="Needs action" />}
                     </div>
-                    <div className="text-[11px] text-gray-500">{fmtDate(o.createdAt)} · {itemCount} item{itemCount === 1 ? '' : 's'}</div>
+                    <div className="text-[11px] text-gray-500 truncate">{fmtDate(o.createdAt)} · {itemCount} item{itemCount === 1 ? '' : 's'}</div>
+                    {/* Customer line — visible on mobile (hidden on sm+ where the dedicated column shows) */}
+                    <div className="text-[11px] text-gray-500 truncate sm:hidden">{o.user?.name || o.shippingAddress?.fullName || '—'} · {o.user?.phone || o.shippingAddress?.phone} · {o.shippingAddress?.city}</div>
+                  </div>
+                  {/* Price — inline on mobile, right-aligned column on sm+ */}
+                  <div className="text-right shrink-0 sm:hidden">
+                    <div className="font-bold text-primary text-sm">{fmtRs(o.total)}</div>
+                    <div className="text-[10px] text-gray-400">{o.paymentMethod?.toUpperCase()} · <span className={o.paymentStatus === 'paid' ? 'text-green-600 font-semibold' : 'text-amber-600 font-semibold'}>{o.paymentStatus}</span></div>
                   </div>
                 </button>
-                <div className="hidden md:block text-xs text-gray-600 min-w-[150px]">
+                <div className="hidden sm:block text-xs text-gray-600 min-w-[150px] max-w-[200px] flex-1">
                   <div className="font-semibold truncate">{o.user?.name || o.shippingAddress?.fullName || '—'}</div>
                   <div className="text-gray-400 truncate">{o.user?.phone || o.shippingAddress?.phone} · {o.shippingAddress?.city}</div>
                 </div>
-                <div className="text-right shrink-0">
+                <div className="hidden sm:block text-right shrink-0">
                   <div className="font-bold text-primary">{fmtRs(o.total)}</div>
                   <div className="text-[10px] text-gray-400">{o.paymentMethod?.toUpperCase()} · <span className={o.paymentStatus === 'paid' ? 'text-green-600 font-semibold' : 'text-amber-600 font-semibold'}>{o.paymentStatus}</span></div>
                 </div>
-                {/* Inline status update */}
-                <div className="flex items-center gap-2">
-                  <button onClick={() => copyId(o.orderNumber || o._id)} title="Copy Order ID" className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-primary hover:text-primary text-xs">
+                {/* Inline status update — full-width row on mobile */}
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <button onClick={() => copyId(o.orderNumber || o._id)} title="Copy Order ID" className="w-8 h-8 shrink-0 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-primary hover:text-primary text-xs">
                     ⧉
                   </button>
                   <select
                     value={o.orderStatus}
                     disabled={updatingId === o._id}
                     onChange={e => updateStatus(o, e.target.value)}
-                    className="border border-gray-200 rounded-full px-3 py-2 text-xs font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 cursor-pointer">
+                    className="flex-1 sm:flex-none min-w-0 border border-gray-200 rounded-full px-3 py-2 text-xs font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 cursor-pointer">
                     {ORDER_STATUSES.map(s => <option key={s} value={s}>{STATUS_META[s].label}</option>)}
                   </select>
-                  <button onClick={() => setOpenId(open ? null : o._id)} className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-cream">
+                  <button onClick={() => setOpenId(open ? null : o._id)} className="w-8 h-8 shrink-0 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-cream">
                     <svg className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                   </button>
                 </div>
@@ -632,22 +643,22 @@ function OrdersTab({ orders, reload }) {
 
               {/* Quick next-step actions */}
               {!open && o.orderStatus !== 'delivered' && o.orderStatus !== 'cancelled' && (
-                <div className="px-4 pb-3 flex flex-wrap gap-2 border-t border-gray-50 pt-3">
+                <div className="px-3 sm:px-4 pb-3 flex gap-2 border-t border-gray-50 pt-3 overflow-x-auto sm:flex-wrap">
                   {FLOW.slice(FLOW.indexOf(o.orderStatus) + 1, FLOW.indexOf(o.orderStatus) + 2).map(ns => (
                     <button key={ns} onClick={() => updateStatus(o, ns)} disabled={updatingId === o._id}
-                      className="text-[11px] font-bold px-4 py-1.5 rounded-full bg-primary text-white hover:bg-primary-dark transition disabled:opacity-50">
+                      className="shrink-0 whitespace-nowrap text-[11px] font-bold px-4 py-1.5 rounded-full bg-primary text-white hover:bg-primary-dark transition disabled:opacity-50">
                       {updatingId === o._id ? 'Saving…' : `Mark ${STATUS_META[ns].label} →`}
                     </button>
                   ))}
                   {FLOW.slice(FLOW.indexOf(o.orderStatus) + 1).map(ns => (
                     <button key={ns} onClick={() => updateStatus(o, ns)} disabled={updatingId === o._id}
-                      className="text-[11px] font-bold px-3 py-1.5 rounded-full border transition disabled:opacity-50 bg-white border-gray-200 text-gray-700 hover:border-primary hover:text-primary">
+                      className="shrink-0 whitespace-nowrap text-[11px] font-bold px-3 py-1.5 rounded-full border transition disabled:opacity-50 bg-white border-gray-200 text-gray-700 hover:border-primary hover:text-primary">
                       {STATUS_META[ns].label}
                     </button>
                   ))}
                   {o.orderStatus !== 'cancelled' && (
                     <button onClick={() => updateStatus(o, 'cancelled')} disabled={updatingId === o._id}
-                      className="text-[11px] font-bold px-3 py-1.5 rounded-full border border-red-200 text-red-600 hover:bg-red-50 transition disabled:opacity-50 ml-auto">
+                      className="shrink-0 whitespace-nowrap text-[11px] font-bold px-3 py-1.5 rounded-full border border-red-200 text-red-600 hover:bg-red-50 transition disabled:opacity-50 sm:ml-auto">
                       Cancel
                     </button>
                   )}
@@ -656,9 +667,9 @@ function OrdersTab({ orders, reload }) {
 
               {/* Expanded detail */}
               {open && (
-                <div className="border-t border-gray-100 bg-cream/40 p-4 md:p-5 grid md:grid-cols-3 gap-5 animate-fadeIn">
+                <div className="border-t border-gray-100 bg-cream/40 p-3 sm:p-4 md:p-5 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 animate-fadeIn min-w-0">
                   {/* Timeline */}
-                  <div className="md:col-span-2">
+                  <div className="md:col-span-2 min-w-0">
                     <div className="flex items-center justify-between mb-3">
                       <div className="text-sm font-bold">Order Timeline</div>
                       <StatusBadge status={o.orderStatus} />
@@ -699,7 +710,7 @@ function OrdersTab({ orders, reload }) {
                   </div>
 
                   {/* Side: customer, address, totals, note */}
-                  <div className="space-y-4">
+                  <div className="space-y-4 min-w-0">
                     <div className="bg-white rounded-xl border p-4">
                       <div className="text-sm font-bold mb-2">Customer</div>
                       <div className="text-xs space-y-1 text-gray-600 break-words">
@@ -731,8 +742,8 @@ function OrdersTab({ orders, reload }) {
                       <div className="text-sm font-bold mb-2">Add note + update status</div>
                       <input value={notes[o._id] || ''} onChange={e => setNotes(prev => ({ ...prev, [o._id]: e.target.value }))}
                         placeholder="e.g. Delivery delayed by 1 day…" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-xs mb-2 focus:outline-none focus:ring-2 focus:ring-primary/20" />
-                      <div className="grid grid-cols-2 gap-2">
-                        <select value={o.orderStatus} onChange={e => updateStatus(o, e.target.value)} disabled={updatingId === o._id} className="border border-gray-200 rounded-full px-3 py-2 text-xs font-semibold bg-white disabled:opacity-50 max-w-full">
+                      <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-2">
+                        <select value={o.orderStatus} onChange={e => updateStatus(o, e.target.value)} disabled={updatingId === o._id} className="w-full min-w-0 border border-gray-200 rounded-full px-3 py-2 text-xs font-semibold bg-white disabled:opacity-50 max-w-full">
                           {ORDER_STATUSES.map(s => <option key={s} value={s}>{STATUS_META[s].label}</option>)}
                         </select>
                         <button onClick={() => updateStatus(o, o.orderStatus)} disabled={updatingId === o._id}

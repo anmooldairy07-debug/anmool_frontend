@@ -43,7 +43,6 @@ function LoginInner() {
           <img src="/logo.png" alt="Anmool Dairy" className="h-12 w-auto mx-auto object-contain" width={180} height={58} />
           <h1 className="font-serif font-bold text-2xl mt-3">Welcome Back</h1>
           <p className="text-sm text-gray-500">Login to Anmool Dairy</p>
-          <div className="text-xs mt-2 bg-accent/5 border border-accent/20 rounded-full inline-block px-3 py-1">Admin: admin@anmooldairy.com / Admin@123</div>
         </div>
         <form onSubmit={handle} className="space-y-4">
           <div>

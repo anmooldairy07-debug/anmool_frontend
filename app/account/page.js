@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
@@ -57,28 +57,40 @@ function DashboardInner() {
   const [query, setQuery] = useState('');
   const [openId, setOpenId] = useState(null);
 
+  const tabParam = params.get('tab') || 'overview';
   useEffect(() => {
-    setTab(params.get('tab') || 'overview');
-  }, [params]);
+    setTab(tabParam);
+  }, [tabParam]);
+
+  // Fetch orders only once per visit to the dashboard (when you hop in),
+  // not on every render / user-object identity change / background re-check.
+  // Stable key (string) instead of the `user` object prevents refetch loops.
+  const userKey = user?._id || user?.id || user?.email || null;
+  const fetchedForRef = useRef(null);
 
   useEffect(() => {
     if (authLoading) return;
-    if (!user) return;
+    if (!user) { setLoading(false); return; }
     if (user.role === 'admin') {
       router.push('/admin');
       return;
     }
+    if (fetchedForRef.current === userKey) return;
+    fetchedForRef.current = userKey;
+    let cancelled = false;
     setLoading(true);
     api
       .get('/orders/my')
       .then((r) => {
+        if (cancelled) return;
         setOrders(r.data || []);
-        if (r.data?.length && !openId) setOpenId(r.data[0]._id);
+        if (r.data?.length) setOpenId((prev) => prev || r.data[0]._id);
       })
       .catch(() => {})
-      .finally(() => setLoading(false));
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, authLoading]);
+  }, [userKey, authLoading]);
 
   const stats = useOrderStats(orders);
 
@@ -96,7 +108,7 @@ function DashboardInner() {
     return list;
   }, [orders, statusFilter, query]);
 
-  if (authLoading || loading) return <Loader text="Loading your dashboard..." />;
+  if (authLoading || (loading && orders.length === 0)) return <Loader text="Loading your dashboard..." />;
   if (!user)
     return (
       <div className="max-w-[600px] mx-auto px-4 py-16 text-center">

@@ -7,9 +7,12 @@ import { CartProvider } from '@/lib/cartContext';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.anmooldairy.com'),
   title: 'Anmool Dairy & DhenuVera — Pavitra Products. Honest Promise. ॐ',
   description: 'Anmool Dairy brings genuine products to your family with purity, care & trust. Pure Desi Ghee, Milk, Cow Dung products & DhenuVera sacred incense — Sambrani Cups, Cone Dhoop & Dhoop Sticks from Karnal, Haryana.',
   keywords: 'Anmool Dairy, DhenuVera, Sambrani Cup, Cone Dhoop, Dhoop Stick, Desi Ghee, Karnal, sacred incense, pooja',
+  alternates: { canonical: '/' },
+  robots: { index: true, follow: true },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
